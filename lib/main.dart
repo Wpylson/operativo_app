@@ -20,7 +20,6 @@ import 'package:operativo_final_cliente/screens/products/product_screen_list.dar
 import 'package:operativo_final_cliente/screens/select_product/select_product_screen.dart';
 import 'package:operativo_final_cliente/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
-
 import 'models/order.dart';
 
 void main() {
