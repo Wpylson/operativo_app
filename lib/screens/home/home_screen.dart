@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 flexibleSpace: const FlexibleSpaceBar(
-                  title: Text('Operativo'),
+                  title: Text('Operativo C'),
                   centerTitle: true,
                 ),
                 actions: [
