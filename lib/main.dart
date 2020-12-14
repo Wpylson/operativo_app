@@ -17,6 +17,7 @@ import 'package:operativo_final_cliente/screens/checkout/checkout_screen.dart';
 import 'package:operativo_final_cliente/screens/confirmations/confirmation_screen.dart';
 import 'package:operativo_final_cliente/screens/edit_product/edit_product_screen.dart';
 import 'package:operativo_final_cliente/screens/login/login_screen.dart';
+import 'package:operativo_final_cliente/screens/orders/orders_screen.dart';
 import 'package:operativo_final_cliente/screens/product/product_screen.dart';
 import 'package:operativo_final_cliente/screens/products/product_screen_list.dart';
 import 'package:operativo_final_cliente/screens/select_product/select_product_screen.dart';
@@ -112,6 +113,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => AddressScreen());
             case '/checkout':
               return MaterialPageRoute(builder: (_) => CheckoutScreen());
+            case '/orders':
+              return MaterialPageRoute(builder: (_) => OrdersScreen());
             case '/confirmation':
               return MaterialPageRoute(
                   builder: (_) =>

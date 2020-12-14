@@ -84,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                     text: 'Meus Pedidos',
                     hasNavigation: true,
                     tap: (){
-                      Navigator.of(context).
+                      Navigator.of(context).pushNamed('/orders');
                     },
                   ),
                   const ListItemWidget(
