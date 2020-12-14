@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:operativo_final_cliente/common/custom_drawer/custom_drawer.dart';
 import 'package:operativo_final_cliente/models/home_manager.dart';
@@ -27,9 +28,60 @@ class HomeScreen extends StatelessWidget{
               ),
             ),
           ),
+          const SizedBox(height: 8,),
+          CarouselSlider(
+                options: CarouselOptions(
+                    aspectRatio: 2.0,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                    autoPlay: true,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(
+                        milliseconds: 800
+                    ),
+                    viewportFraction: 0.8
+                ),
+                items: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/Horizon.jpg'),
+                            fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/Horizon2.jpg'),
+                            fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/Horizon3.jpg'),
+                            fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+
+                ]
+            ),
           CustomScrollView(
             slivers: [
               SliverAppBar(
+                title: const Text('Operativo',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+                 ),
+                ),
                 snap: true,
                 floating: true,
                 elevation: 0,
@@ -75,6 +127,7 @@ class HomeScreen extends StatelessWidget{
                   )
                 ],
               ),
+
               Consumer<HomeManager>(builder: (_, homeManager, __) {
                 if (homeManager.loading) {
                   return const SliverToBoxAdapter(
