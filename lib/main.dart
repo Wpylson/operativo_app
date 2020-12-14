@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:operativo_final_cliente/models/admin_orders_manager.dart';
 import 'package:operativo_final_cliente/models/admin_users_manager.dart';
 import 'package:operativo_final_cliente/models/cart_manager.dart';
 import 'package:operativo_final_cliente/models/category_manager.dart';
+import 'package:operativo_final_cliente/models/categorys.dart';
 import 'package:operativo_final_cliente/models/home_manager.dart';
 import 'package:operativo_final_cliente/models/orders_manager.dart';
 import 'package:operativo_final_cliente/models/product.dart';
@@ -26,7 +28,6 @@ void main() {
   runApp(MyApp());
   //01001000
   //13087000
-  //Teste
 }
 
 class MyApp extends StatelessWidget {
@@ -97,7 +98,7 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => ProductScreen(settings.arguments as Product));
             case '/category':
-              return MaterialPageRoute(builder: (_) => ProductScreenList());
+              return MaterialPageRoute(builder: (_) => ProductScreenList(settings.arguments as Category));
             case '/cart':
               return MaterialPageRoute(
                   builder: (_) => CartScreen(), settings: settings);

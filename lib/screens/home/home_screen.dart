@@ -5,14 +5,15 @@ import 'package:operativo_final_cliente/models/user_manager.dart';
 import 'package:operativo_final_cliente/screens/home/components/add_section_widget.dart';
 import 'package:operativo_final_cliente/screens/home/components/section_list.dart';
 import 'package:operativo_final_cliente/screens/home/components/section_staggered.dart';
+import 'package:operativo_final_cliente/screens/orders/orders_screen.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget{
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
-      body: Stack(
+       body: Stack(
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -33,10 +34,6 @@ class HomeScreen extends StatelessWidget {
                 floating: true,
                 elevation: 0,
                 backgroundColor: Colors.transparent,
-                flexibleSpace: const FlexibleSpaceBar(
-                  title: Text('Operativo C'),
-                  centerTitle: true,
-                ),
                 actions: [
                   IconButton(
                     icon: const Icon(Icons.shopping_cart),

@@ -29,7 +29,7 @@ class ProductManager extends ChangeNotifier{
       filteredProducts.addAll(allProducts);
     }else{
       filteredProducts.addAll(
-        allProducts.where(
+          allProducts.where(
             (p) => p.name.toLowerCase().contains(search.toLowerCase())
         )
       );
@@ -48,6 +48,20 @@ class ProductManager extends ChangeNotifier{
             (d) => Product.fromDocument(d)).toList();
 
     notifyListeners();
+  }
+
+
+
+  //Categoria Produto
+  Future<void> _loadAllProductsP()async{
+   final QuerySnapshot snapshot= await Firestore.instance.collection('products')
+        .document('bebidas').collection('items')
+        .where('deleted',isEqualTo: false)
+        .getDocuments();
+
+    snapshot.documents.map((e) => Product.fromDocument(e)).toList();
+    notifyListeners();
+
   }
 
   Product findProductByID(String id){

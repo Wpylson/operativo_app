@@ -25,7 +25,6 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
     );
 
     return Scaffold(
-      drawer: CustomDrawer(),
       appBar: AppBar(
         title: const Text(
             'Todos os Pedidos'

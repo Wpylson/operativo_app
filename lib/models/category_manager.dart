@@ -41,7 +41,8 @@ class CategoryManager extends ChangeNotifier{
     final QuerySnapshot snapCat = await firestore.collection('products').getDocuments();
 
      allCategorys = snapCat.documents.map((c) => Category.fromDocument(c)).toList();
-
     notifyListeners();
   }
+
+
 }

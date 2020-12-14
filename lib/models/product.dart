@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -108,7 +107,7 @@ class Product extends ChangeNotifier{
       'deleted': deleted,
     };
 
-    //Se o Id do produto é nulo é pk estou criando um novo prouto ao senao é pk estou editando
+    //Se o Id do produto é nulo é pk estou criando um novo produto ao senao é pk estou editando
     if(id == null){
       final doc = await firestore.collection('produtos').add(data);
       id = doc.documentID;

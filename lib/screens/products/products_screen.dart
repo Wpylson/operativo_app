@@ -11,7 +11,6 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
       appBar: AppBar(
         title: Consumer<ProductManager>(
           builder: (_,productManager,__){
