@@ -9,6 +9,8 @@ import 'package:operativo_final_cliente/models/home_manager.dart';
 import 'package:operativo_final_cliente/models/orders_manager.dart';
 import 'package:operativo_final_cliente/models/product.dart';
 import 'package:operativo_final_cliente/models/product_manger.dart';
+import 'package:operativo_final_cliente/models/services.dart';
+import 'package:operativo_final_cliente/models/services_manager.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
 import 'package:operativo_final_cliente/screens/address/address_screen.dart';
 import 'package:operativo_final_cliente/screens/base/base_screen.dart';
@@ -17,6 +19,8 @@ import 'package:operativo_final_cliente/screens/checkout/checkout_screen.dart';
 import 'package:operativo_final_cliente/screens/confirmations/confirmation_screen.dart';
 import 'package:operativo_final_cliente/screens/edit_product/edit_product_screen.dart';
 import 'package:operativo_final_cliente/screens/login/login_screen.dart';
+import 'package:operativo_final_cliente/screens/menu/menu_screen.dart';
+import 'package:operativo_final_cliente/screens/menu/service_screen_list.dart';
 import 'package:operativo_final_cliente/screens/orders/orders_screen.dart';
 import 'package:operativo_final_cliente/screens/product/product_screen.dart';
 import 'package:operativo_final_cliente/screens/products/product_screen_list.dart';
@@ -26,6 +30,7 @@ import 'package:provider/provider.dart';
 import 'models/order.dart';
 
 void main() {
+
   runApp(MyApp());
   //01001000
   //13087000
@@ -64,6 +69,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => CategoryManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ServiceManager(),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
@@ -107,6 +116,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       EditProductScreen(settings.arguments as Product));
+            case '/services':
+              return MaterialPageRoute(
+                  builder: (_) =>
+                      ServiceScreenList(settings.arguments as Services));
             case '/select_product':
               return MaterialPageRoute(builder: (_) => SelectProductScreen());
             case '/address':
@@ -115,6 +128,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => CheckoutScreen());
             case '/orders':
               return MaterialPageRoute(builder: (_) => OrdersScreen());
+            case '/menu':
+              return MaterialPageRoute(builder: (_) => MenuScreen());
             case '/confirmation':
               return MaterialPageRoute(
                   builder: (_) =>

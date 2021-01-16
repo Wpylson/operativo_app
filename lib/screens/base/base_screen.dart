@@ -7,6 +7,7 @@ import 'package:operativo_final_cliente/models/user_manager.dart';
 import 'package:operativo_final_cliente/screens/admin_orders/admin_orders_screen.dart';
 import 'package:operativo_final_cliente/screens/admin_users/admin_users_screen.dart';
 import 'package:operativo_final_cliente/screens/home/home_screen.dart';
+import 'package:operativo_final_cliente/screens/menu/menu_screen.dart';
 import 'package:operativo_final_cliente/screens/orders/orders_screen.dart';
 import 'package:operativo_final_cliente/screens/products/category_screen.dart';
 import 'package:operativo_final_cliente/screens/products/products_screen.dart';
@@ -34,10 +35,11 @@ class _BaseScreenState extends State<BaseScreen> {
     _page = 0;
   }
 
-  changePage(int index){
-    setState(() {
-      _page = index;
-    });
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,8 +69,8 @@ class _BaseScreenState extends State<BaseScreen> {
                 label: 'Pesquisar'
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.list_alt),
-                label: 'Serviços'
+                icon: Icon(LineAwesomeIcons.angellist),
+                label: 'Category'
             ),
             BottomNavigationBarItem(
                 icon: Icon(LineAwesomeIcons.list),
@@ -84,14 +86,20 @@ class _BaseScreenState extends State<BaseScreen> {
       body: PageView(
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),
+              onPageChanged: (p){
+                setState(() {
+                  _page = p;
+                });
+              },
               children: [
                 HomeScreen(),
                 ProductsScreen(),
                 CategoryScreen(),
-                OrdersScreen(),
+                MenuScreen(),
                 ProfileScreen()
 
               ],
+
             ),
     );
   }

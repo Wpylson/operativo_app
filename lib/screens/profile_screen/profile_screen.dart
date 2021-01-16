@@ -4,10 +4,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:operativo_final_cliente/common/constants.dart';
 import 'package:operativo_final_cliente/common/list_item_widget.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
-import 'package:operativo_final_cliente/screens/profile_screen/components/header_profile.dart';
-import 'package:operativo_final_cliente/screens/profile_screen/components/info_profile.dart';
 import 'package:provider/provider.dart';
-import 'package:operativo_final_cliente/models/user_manager.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -23,8 +20,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                Consumer<UserManager>(builder: (_, userManager, __) {
-                  return Column(
+                Column(
                     children: [
                       SizedBox(
                         height: kSpacingUnit.w * 10,
@@ -67,8 +63,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       Text(userManager.user.email, style: kCaptionTextStyle),
                     ],
-                  );
-                }),
+                  ),
               ],
             ),
             Expanded(

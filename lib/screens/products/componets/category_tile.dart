@@ -15,7 +15,7 @@ class CategoryTile extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         child: Container(
-          height: 100,
+          height: 60,
           padding: const EdgeInsets.all(4),
           child: Row(
             children: [
