@@ -14,6 +14,7 @@ import 'package:operativo_final_cliente/models/services_manager.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
 import 'package:operativo_final_cliente/screens/address/address_screen.dart';
 import 'package:operativo_final_cliente/screens/base/base_screen.dart';
+import 'package:operativo_final_cliente/screens/base/home_base_screen.dart';
 import 'package:operativo_final_cliente/screens/cart/cart_screen.dart';
 import 'package:operativo_final_cliente/screens/checkout/checkout_screen.dart';
 import 'package:operativo_final_cliente/screens/confirmations/confirmation_screen.dart';
@@ -137,12 +138,12 @@ class MyApp extends StatelessWidget {
             case '/base':
               //default:
               return MaterialPageRoute(
-                builder: (_) => BaseScreen(),
+                builder: (_) => HomeBaseScreen(),
               );
             case '/':
             default:
               return MaterialPageRoute(
-                  builder: (_) => BaseScreen(), settings: settings);
+                  builder: (_) => HomeBaseScreen(), settings: settings);
           }
         },
       ),
