@@ -28,9 +28,11 @@ import 'package:operativo_final_cliente/screens/products/product_screen_list.dar
 import 'package:operativo_final_cliente/screens/select_product/select_product_screen.dart';
 import 'package:operativo_final_cliente/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
+import 'models/estabelecimentos_manager.dart';
 import 'models/order.dart';
 
-void main() {
+Future<void> main()async{
+
 
   runApp(MyApp());
   //01001000
@@ -74,6 +76,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ServiceManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EstabelecimentosManager(),
           lazy: false,
         ),
         ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(

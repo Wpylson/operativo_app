@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:operativo_final_cliente/common/circle_button.dart';
+import 'package:operativo_final_cliente/screens/cart/cart_screen.dart';
+import 'package:operativo_final_cliente/screens/estabelecimentos/estabelecimentos_screen.dart';
+import 'package:operativo_final_cliente/screens/products/category_screen.dart';
 import 'package:operativo_final_cliente/screens/products/products_screen.dart';
 import 'package:operativo_final_cliente/screens/profile_screen/profile_screen.dart';
 
@@ -10,70 +13,45 @@ class HomeBaseScreen extends StatelessWidget {
       width: 400.0,
       height: 400.0,
       decoration:
-      const BoxDecoration(color: Colors.yellowAccent, shape: BoxShape.circle),
+       BoxDecoration(color: Colors.indigo[900], shape: BoxShape.circle),
     );
 
     return Scaffold(
-      backgroundColor: Colors.yellowAccent,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.indigo[900],
         leading: TextButton(
             onPressed: (){},
-            child: const Icon(Icons.menu)
+            child: const Icon(Icons.menu,color: Colors.yellow)
         ),
         actions: [
           TextButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute( builder: (context)=>ProfileScreen()));
+                Navigator.push(context, MaterialPageRoute( builder: (context)=>CartScreen()));
               },
-              child: const Icon(Icons.shopping_cart)
+              child: const Icon(Icons.shopping_cart,color: Colors.yellow)
           ),
           TextButton(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute( builder: (context)=>ProfileScreen()));
               },
-              child: const Icon(Icons.person)
+              child: const Icon(Icons.person, color: Colors.yellow,)
           ),
         ],
       ),
       body: Material(
-        color: Colors.white,
+        color: Colors.indigo[900],
         child: ListView(
           children: [
-           Padding(
-             padding: const EdgeInsets.all(8.0),
-             child: Row(
-               // ignore: prefer_const_literals_to_create_immutables
-               children: [
-                   const Text(
-                    'Operativo',
-                    style: TextStyle(
-                      fontSize: 38,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold
-                    ),
+           const Padding(
+             padding:  EdgeInsets.all(8.0),
+             child:  Text(
+              'Operativo',
+              style: TextStyle(
+                fontSize: 38,
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),
                   ),
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                   children: [
-                     TextButton(
-                         onPressed: (){
-                           Navigator.push(context, MaterialPageRoute( builder: (context)=>ProfileScreen()));
-                         },
-                         child: const Icon(Icons.shopping_cart)
-                     ),
-                     TextButton(
-                         onPressed: (){
-                           Navigator.push(context, MaterialPageRoute( builder: (context)=>ProfileScreen()));
-                         },
-                         child: const Icon(Icons.person)
-                     ),
-                   ],
-                 ),
-
-               ],
-             ),
            ),
             const SizedBox(height: 100,),
             Padding(
@@ -97,7 +75,10 @@ class HomeBaseScreen extends StatelessWidget {
                     Positioned(
                       top: 140.0,
                       right: 0.0,
-                      child:  CircleButton(onTap: () => print("Cool"), iconData: Icons.store_mall_directory,menu: 'Lojas'),
+                      child:  CircleButton(onTap: () {
+                        Navigator.push(context, MaterialPageRoute( builder: (context)=>EstabelecimentosScreen()));
+                      },
+                          iconData: Icons.store_mall_directory,menu: 'Lojas'),
                     ),
                     Positioned(
                       top: 280.0,

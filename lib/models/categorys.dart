@@ -22,8 +22,8 @@ class Category extends ChangeNotifier{
 
   Category.fromDocument(DocumentSnapshot document){
     id = document.documentID;
-    title = document['title'] as String;
-    icon = document['icon'] as String;
+    title = document['name'] as String;
+    icon = document['image'] as String;
 
   }
 

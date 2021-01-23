@@ -11,13 +11,13 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenUtil.init(context,
         allowFontScaling: true, designSize: const Size(414, 896));
-    return Scaffold(body: Consumer<UserManager>(builder: (_, userManager, __) {
+    return Scaffold(
+      appBar:AppBar(),
+        body: Consumer<UserManager>(builder: (_, userManager, __) {
       if (userManager.isLoggedIn) {
         return Column(
           children: [
-            SizedBox(
-              height: kSpacingUnit.w * 5,
-            ),
+
             Column(
               children: [
                 Column(
@@ -61,11 +61,14 @@ class ProfileScreen extends StatelessWidget {
                       SizedBox(
                         height: kSpacingUnit.w * 0.5,
                       ),
-                      Text(userManager.user.email, style: kCaptionTextStyle),
+                      Text(userManager.user.email, style: const TextStyle(
+                        fontSize: 12
+                      )),
                     ],
                   ),
               ],
             ),
+             SizedBox(height: kSpacingUnit.w * 2 ,),
             Expanded(
               child: ListView(
                 children: [
