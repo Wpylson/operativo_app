@@ -74,7 +74,8 @@ class UserManager extends ChangeNotifier{
  Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async{
     final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
     if(currentUser != null){
-      final DocumentSnapshot docUser = await firestore.collection('users').document(currentUser.uid).get();
+      final DocumentSnapshot docUser = //await firestore.collection('users').document(currentUser.uid).get();
+       await firestore.collection('citys').document('namibe').collection('users').document(currentUser.uid).get();
       user = User.fromDocument(docUser);
 
       //verificar se o user é um admin

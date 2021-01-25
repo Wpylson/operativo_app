@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:operativo_final_cliente/helpers/validators.dart';
 import 'package:operativo_final_cliente/models/user.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
+import 'package:operativo_final_cliente/screens/base/home_base_screen.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -126,7 +127,7 @@ class SignUpScreen extends StatelessWidget {
                                     userManager.signUp(
                                         user: user,
                                         onSuccess: () {
-                                          Navigator.of(context).pop();
+                                          Navigator.push(context, MaterialPageRoute( builder: (context)=>SignUpScreen()));
                                         },
                                         onFail: (e) {
                                           scaffoldKey.currentState

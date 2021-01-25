@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:operativo_final_cliente/helpers/validators.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
+import 'package:operativo_final_cliente/screens/base/home_base_screen.dart';
+import 'package:operativo_final_cliente/screens/profile_screen/profile_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:operativo_final_cliente/models/user.dart';
 
@@ -91,7 +93,8 @@ class LoginScreen extends StatelessWidget {
                                   );
                                 },
                                 onSuccess: (){
-                                  Navigator.of(context).pop();
+                                 // Navigator.of(context).pop();
+                                  Navigator.push(context, MaterialPageRoute( builder: (context)=>HomeBaseScreen()));
                                 }
                             );
                           }

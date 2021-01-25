@@ -23,9 +23,13 @@ class User{
   String confirmPassword;
   bool admin = false;
   Address address;
+  final Firestore firestore = Firestore.instance;
 
   DocumentReference get firestoreRef =>
-  Firestore.instance.document('users/$id');
+  //Firestore.instance.document('users/$id');
+
+  // ignore: unnecessary_string_interpolations
+  firestore.collection('citys').document('namibe').collection('users').document('$id');
 
   CollectionReference get cartReference =>
       firestoreRef.collection('cart');

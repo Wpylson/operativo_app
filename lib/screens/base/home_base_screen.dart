@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:operativo_final_cliente/common/circle_button.dart';
+import 'package:operativo_final_cliente/common/colors.dart';
 import 'package:operativo_final_cliente/screens/cart/cart_screen.dart';
 import 'package:operativo_final_cliente/screens/estabelecimentos/estabelecimentos_screen.dart';
 import 'package:operativo_final_cliente/screens/products/category_screen.dart';
@@ -7,51 +8,53 @@ import 'package:operativo_final_cliente/screens/products/products_screen.dart';
 import 'package:operativo_final_cliente/screens/profile_screen/profile_screen.dart';
 
 class HomeBaseScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final Widget bigCircle =  Container(
       width: 400.0,
       height: 400.0,
       decoration:
-       BoxDecoration(color: Colors.indigo[900], shape: BoxShape.circle),
+       BoxDecoration(color: azul, shape: BoxShape.circle),
     );
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo[900],
+        backgroundColor: azul,
         leading: TextButton(
             onPressed: (){},
-            child: const Icon(Icons.menu,color: Colors.yellow)
+            child:  Icon(Icons.menu,color: amarela)
         ),
         actions: [
-          TextButton(
+          IconButton(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute( builder: (context)=>CartScreen()));
               },
-              child: const Icon(Icons.shopping_cart,color: Colors.yellow)
+              icon:  Icon(Icons.shopping_cart,color: amarela)
           ),
-          TextButton(
+          IconButton(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute( builder: (context)=>ProfileScreen()));
               },
-              child: const Icon(Icons.person, color: Colors.yellow,)
+              icon: Icon(Icons.person, color: amarela),
           ),
         ],
       ),
       body: Material(
-        color: Colors.indigo[900],
+        color: azul,
         child: ListView(
           children: [
-           const Padding(
-             padding:  EdgeInsets.all(8.0),
-             child:  Text(
-              'Operativo',
-              style: TextStyle(
-                fontSize: 38,
-                color: Colors.white,
-                fontWeight: FontWeight.bold
-              ),
-                  ),
+           Column(
+             children: [
+                Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: Column(
+                   children: [
+                     Image.asset('assets/images/logo2.png',height: 50,),
+                   ],
+                 ),
+               ),
+             ],
            ),
             const SizedBox(height: 100,),
             Padding(
