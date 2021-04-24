@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:operativo_final_cliente/models/admin_orders_manager.dart';
 import 'package:operativo_final_cliente/models/admin_users_manager.dart';
@@ -13,7 +12,6 @@ import 'package:operativo_final_cliente/models/services.dart';
 import 'package:operativo_final_cliente/models/services_manager.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
 import 'package:operativo_final_cliente/screens/address/address_screen.dart';
-import 'package:operativo_final_cliente/screens/base/base_screen.dart';
 import 'package:operativo_final_cliente/screens/base/home_base_screen.dart';
 import 'package:operativo_final_cliente/screens/cart/cart_screen.dart';
 import 'package:operativo_final_cliente/screens/checkout/checkout_screen.dart';
@@ -27,13 +25,12 @@ import 'package:operativo_final_cliente/screens/product/product_screen.dart';
 import 'package:operativo_final_cliente/screens/products/product_screen_list.dart';
 import 'package:operativo_final_cliente/screens/select_product/select_product_screen.dart';
 import 'package:operativo_final_cliente/screens/signup/signup_screen.dart';
+import 'package:operativo_final_cliente/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'models/estabelecimentos_manager.dart';
 import 'models/order.dart';
 
-Future<void> main()async{
-
-
+Future<void> main() async {
   runApp(MyApp());
   //01001000
   //13087000
@@ -105,7 +102,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         //initialRoute: '/base',
         onGenerateRoute: (settings) {
-          print(settings.name);
+         // print(settings.name);
           switch (settings.name) {
             case '/login':
               return MaterialPageRoute(builder: (_) => LoginScreen());
@@ -115,7 +112,9 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => ProductScreen(settings.arguments as Product));
             case '/category':
-              return MaterialPageRoute(builder: (_) => ProductScreenList(settings.arguments as Category));
+              return MaterialPageRoute(
+                  builder: (_) =>
+                      ProductScreenList(settings.arguments as Category));
             case '/cart':
               return MaterialPageRoute(
                   builder: (_) => CartScreen(), settings: settings);
@@ -149,7 +148,7 @@ class MyApp extends StatelessWidget {
             case '/':
             default:
               return MaterialPageRoute(
-                  builder: (_) => HomeBaseScreen(), settings: settings);
+                  builder: (_) => SplashScreen(), settings: settings);
           }
         },
       ),

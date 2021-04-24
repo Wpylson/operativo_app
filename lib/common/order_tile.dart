@@ -40,11 +40,10 @@ class OrderTile extends StatelessWidget {
                 Text(
                   'Data: ${order.novaData}',
                   style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    fontSize: 10,
-                    fontStyle: FontStyle.italic
-                  ),
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontStyle: FontStyle.italic),
                 ),
               ],
             ),
@@ -71,32 +70,35 @@ class OrderTile extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  FlatButton(
-                    onPressed:(){
-                      showDialog(context: context,
-                        builder: (_) => CancelOrderDialog(order)
-                      );
+                  TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => CancelOrderDialog(order));
                     },
-                    textColor: Colors.red,
-                    child: const Text('Cancelar'),
+                    child: const Text(
+                      'Cancelar',
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
-                  FlatButton(
-                    onPressed:order.back,
+                  TextButton(
+                    onPressed: order.back,
                     child: const Text('Recuar'),
                   ),
-                  FlatButton(
-                    onPressed:order.advance,
+                  TextButton(
+                    onPressed: order.advance,
                     child: const Text('Avançar'),
                   ),
-                  FlatButton(
-                    onPressed:(){
+                  TextButton(
+                    onPressed: () {
                       showDialog(
-                        context: context,
-                        builder: (_) => ExportAddressDialog(order)
-                      );
+                          context: context,
+                          builder: (_) => ExportAddressDialog(order));
                     },
-                    textColor: Theme.of(context).primaryColor,
-                    child: const Text('Endereço'),
+                    child: const Text(
+                      'Endereço',
+                      style: TextStyle(color: Colors.blue),
+                    ),
                   ),
                 ],
               ),

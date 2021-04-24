@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:operativo_final_cliente/common/colors.dart';
 import 'package:operativo_final_cliente/common/constants.dart';
 
 class ListItemWidget extends StatelessWidget {
@@ -29,6 +30,7 @@ class ListItemWidget extends StatelessWidget {
             Icon(
               icon,
               size:kSpacingUnit.w * 2.5,
+              color: amarela,
             ),
             SizedBox(width: kSpacingUnit.w * 2.5,),
             Text(
@@ -42,6 +44,7 @@ class ListItemWidget extends StatelessWidget {
               Icon(
                 LineAwesomeIcons.angle_right,
                 size: kSpacingUnit.w * 2.5,
+                color: amarela,
               ),
           ],
         ),

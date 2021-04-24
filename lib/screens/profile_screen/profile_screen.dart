@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:operativo_final_cliente/common/colors.dart';
 import 'package:operativo_final_cliente/common/constants.dart';
 import 'package:operativo_final_cliente/common/list_item_widget.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
@@ -12,11 +13,16 @@ class ProfileScreen extends StatelessWidget {
     ScreenUtil.init(context,
         allowFontScaling: true, designSize: const Size(414, 896));
     return Scaffold(
-      appBar:AppBar(),
+      backgroundColor: azul,
+      appBar:AppBar(
+        backgroundColor: azul,
+        elevation: 0,
+
+      ),
         body: Consumer<UserManager>(builder: (_, userManager, __) {
       if (userManager.isLoggedIn) {
-        return Column(
-          children: [
+          return Column(
+            children: [
 
             Column(
               children: [
@@ -38,11 +44,11 @@ class ProfileScreen extends StatelessWidget {
                                 height: kSpacingUnit.w * 3,
                                 width: kSpacingUnit.w * 3,
                                 decoration: BoxDecoration(
-                                    color: Theme.of(context).accentColor,
+                                    color: amarela,
                                     shape: BoxShape.circle),
                                 child: IconButton(
-                                  icon: const Icon(LineAwesomeIcons.pen),
-                                  color: kDarkPrimaryColor,
+                                  icon:  Icon(LineAwesomeIcons.pen,color: azul,),
+                                  color: azul,
                                   iconSize:
                                       ScreenUtil().setSp(kSpacingUnit.w * 1.5),
                                   onPressed: () {},
@@ -57,12 +63,16 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       Text(
                           'Olá, ${userManager.user?.name ?? 'Incia Sessão ou cria uma nova conta '}',
-                          style: kTitleTextStyle),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white
+                          )),
                       SizedBox(
                         height: kSpacingUnit.w * 0.5,
                       ),
-                      Text(userManager.user.email, style: const TextStyle(
-                        fontSize: 12
+                      Text(userManager.user.email, style:  TextStyle(
+                        fontSize: 12,
+                        color: branco
                       )),
                     ],
                   ),
@@ -106,8 +116,8 @@ class ProfileScreen extends StatelessWidget {
           ],
         );
       } else {
-        return Center(
-          child: ListItemWidget(
+          return Center(
+           child: ListItemWidget(
             icon: LineAwesomeIcons.door_open,
             text: 'Iniciar Sessão ou Criar Conta',
             hasNavigation: true,

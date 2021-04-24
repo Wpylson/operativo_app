@@ -25,6 +25,7 @@ class HomeBaseScreen extends StatelessWidget {
             onPressed: (){},
             child:  Icon(Icons.menu,color: amarela)
         ),
+        centerTitle: true,
         actions: [
           IconButton(
               onPressed: (){
@@ -50,7 +51,7 @@ class HomeBaseScreen extends StatelessWidget {
                  padding: const EdgeInsets.all(8.0),
                  child: Column(
                    children: [
-                     Image.asset('assets/images/logo2.png',height: 50,),
+                    Image.asset('assets/images/logo2.png',height: 50,),
                    ],
                  ),
                ),

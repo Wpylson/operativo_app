@@ -12,6 +12,7 @@ const kAccentColor = Color(0xFFFFC107);
 final kTitleTextStyle = TextStyle(
   fontSize: ScreenUtil().setSp(kSpacingUnit.w * 1.7),
   fontWeight: FontWeight.w600,
+  color: Colors.white
 );
 
 final kCaptionTextStyle = TextStyle(
