@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:operativo_final_cliente/common/custom_drawer/custom_drawer.dart';
 import 'package:operativo_final_cliente/common/empty_card.dart';
 import 'package:operativo_final_cliente/common/login_card.dart';
 import 'package:operativo_final_cliente/common/order_tile.dart';
@@ -12,16 +11,16 @@ class OrdersScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Meus Pedidos'
+          'Meus Pedidos',
         ),
         centerTitle: true,
       ),
       body: Consumer<OrdersManager>(
-        builder: (_, ordersManager,__){
-          if(ordersManager.user ==null){
+        builder: (_, ordersManager, __) {
+          if (ordersManager.user == null) {
             return LoginCard();
           }
-          if(ordersManager.orders.isEmpty){
+          if (ordersManager.orders.isEmpty) {
             return const EmptyCard(
               title: 'Nenhuma compra encontrada!',
               iconData: Icons.border_clear,
@@ -29,12 +28,11 @@ class OrdersScreen extends StatelessWidget {
           }
           return ListView.builder(
             itemCount: ordersManager.orders.length,
-            itemBuilder: (_,index){
-             return OrderTile(ordersManager.orders.reversed.toList()[index]);
+            itemBuilder: (_, index) {
+              return OrderTile(ordersManager.orders.reversed.toList()[index]);
             },
           );
-
-        }
+        },
       ),
     );
   }

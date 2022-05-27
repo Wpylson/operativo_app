@@ -8,19 +8,17 @@ import 'package:operativo_final_cliente/models/user.dart';
 class OrdersManager extends ChangeNotifier {
   User user;
   List<Order> orders = [];
-  final Firestore firestore = Firestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   StreamSubscription _subscription;
 
   void updateUser(User user) {
     this.user = user;
     orders.clear();
 
-    _subscription?.cancel();//se nao e nulo chamar o cancel
+    _subscription?.cancel(); //se nao e nulo chamar o cancel
     if (user != null) {
       _listenToOrders();
     }
-
-
   }
 
   void _listenToOrders() {
@@ -32,7 +30,7 @@ class OrdersManager extends ChangeNotifier {
         .snapshots()
         .listen((event) {
       orders.clear();
-      for(final doc in event.documents){
+      for (final doc in event.docs) {
         orders.add(Order.fromDocuments(doc));
       }
       notifyListeners();
@@ -43,7 +41,6 @@ class OrdersManager extends ChangeNotifier {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _subscription?.cancel();//se nao e nulo chamar o cancel
+    _subscription?.cancel(); //se nao e nulo chamar o cancel
   }
-
 }

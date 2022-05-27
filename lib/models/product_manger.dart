@@ -2,14 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:operativo_final_cliente/models/product.dart';
 
-class ProductManager extends ChangeNotifier{
-
-  ProductManager(){
+class ProductManager extends ChangeNotifier {
+  ProductManager() {
     _loadAllProducts();
   }
-  final Firestore firestore = Firestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Product> allProducts = [];
-
 
   String id = 'pizza';
   //Para pesquisar
@@ -22,67 +20,65 @@ class ProductManager extends ChangeNotifier{
     notifyListeners();
   }
 
-  List<Product> get filteredProducts{
-    final List<Product> filteredProducts =[];
-    
-    if(search.isEmpty){
+  List<Product> get filteredProducts {
+    final List<Product> filteredProducts = [];
+
+    if (search.isEmpty) {
       filteredProducts.addAll(allProducts);
-    }else{
+    } else {
       filteredProducts.addAll(
-          allProducts.where(
-            (p) => p.name.toLowerCase().contains(search.toLowerCase())
-        )
+        allProducts.where(
+          (p) => p.name.toLowerCase().contains(search.toLowerCase()),
+        ),
       );
     }
 
     return filteredProducts;
   }
 
+  Future<void> _loadAllProducts() async {
+    final QuerySnapshot snapProducts = await firestore
+        .collection('produtos')
+        .where('deleted', isEqualTo: false)
+        .get();
 
-  Future<void> _loadAllProducts( )async{
-    final QuerySnapshot snapProducts = 
-    await firestore.collection('produtos').where('deleted', isEqualTo: false) 
-        .getDocuments();
-
-    allProducts = snapProducts.documents.map(
-            (d) => Product.fromDocument(d)).toList();
+    allProducts =
+        snapProducts.docs.map((d) => Product.fromDocument(d)).toList();
 
     notifyListeners();
   }
 
-
-
   //Categoria Produto
-  Future<void> _loadAllProductsP()async{
-   final QuerySnapshot snapshot= await Firestore.instance.collection('products')
-        .document('bebidas').collection('items')
-        .where('deleted',isEqualTo: false)
-        .getDocuments();
+  /* Future<void> _loadAllProductsP() async {
+    final QuerySnapshot snapshot = await Firestore.instance
+        .collection('products')
+        .doc('bebidas')
+        .collection('items')
+        .where('deleted', isEqualTo: false)
+        .get();
 
     snapshot.documents.map((e) => Product.fromDocument(e)).toList();
     notifyListeners();
+  }*/
 
-  }
-
-  Product findProductByID(String id){
-    try{
+  Product findProductByID(String id) {
+    try {
       return allProducts.firstWhere((p) => p.id == id);
-    }catch (e){
+    } catch (e) {
       return null;
     }
   }
 
-  void update(Product product){
+  void update(Product product) {
     allProducts.removeWhere((p) => p.id == product.id);
     allProducts.add(product);
     notifyListeners();
   }
 
-  void delete(Product product){
+  void delete(Product product) {
     product.delete();
-    allProducts.removeWhere((p) => p.id == product.id);//remover da lista primeiro
+    allProducts
+        .removeWhere((p) => p.id == product.id); //remover da lista primeiro
     notifyListeners();
   }
-
-
 }

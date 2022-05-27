@@ -10,18 +10,22 @@ class CancelOrderDialog extends StatelessWidget {
       title: Text(
         'Cancelar ${order.formattedId} ?',
         style: const TextStyle(
-            fontSize: 18
-      ),
+          fontSize: 18,
+        ),
       ),
       content: const Text('Esta acção não poderá ser desfeita!'),
       actions: [
-        FlatButton(
-            onPressed: () {
-              order.cancel();
-              Navigator.of(context).pop();
-            },
-            textColor: Colors.red,
-            child: const Text('Cancelar Pedido'),
+        TextButton(
+          onPressed: () {
+            order.cancel();
+            Navigator.of(context).pop();
+          },
+          child: const Text(
+            'Cancelar Pedido',
+            style: TextStyle(
+              color: Colors.red,
+            ),
+          ),
         ),
       ],
     );

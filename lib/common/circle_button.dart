@@ -5,12 +5,14 @@ class CircleButton extends StatelessWidget {
   final GestureTapCallback onTap;
   final IconData iconData;
   final String menu;
-  const CircleButton({Key key,this.onTap,this.iconData,this.menu}) : super(key: key);
+  final double fontSize;
+  final double heightSized;
+  const CircleButton({Key key,this.onTap,this.iconData,this.menu, this.fontSize, this.heightSized}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    const double size = 110.0;
+    const double size = 120.0;
     return InkResponse(
       onTap: onTap,
       child:  Container(
@@ -31,11 +33,11 @@ class CircleButton extends StatelessWidget {
                   color: amarela,
                   size: 50,
                 ),
-                const SizedBox(height: 15,),
+                 SizedBox(height: heightSized,),
                 Text(menu,
                 style:  TextStyle(
                   color:branco,
-                  fontSize: 14,
+                  fontSize: fontSize,
                 ),
                 ),
               ],

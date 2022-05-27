@@ -5,28 +5,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:operativo_final_cliente/models/user.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
 
-class AdminUsersManager extends ChangeNotifier{
-
-  List<User> users =[];
-  final Firestore firestore = Firestore.instance;
+class AdminUsersManager extends ChangeNotifier {
+  List<Uuser> users = [];
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   StreamSubscription _subscription;
 
-  void updateUser(UserManager userManager){
+  void updateUser(UserManager userManager) {
     _subscription?.cancel();
-    if(userManager.adminEnabled){
+    if (userManager.adminEnabled) {
       _listenToUsers();
-    }else{
+    } else {
       users.clear();
       notifyListeners();
     }
   }
 
-  void _listenToUsers(){
-     _subscription = firestore.collection('users').snapshots().listen((snapshot){
-      users = snapshot.documents.map((e) => User.fromDocument(e)).toList();
+  void _listenToUsers() {
+    _subscription =
+        firestore.collection('users').snapshots().listen((snapshot) {
+      users = snapshot.docs.map((e) => Uuser.fromDocument(e)).toList();
       //order uma lista por ordem alfa
       //order por nome
-      users.sort((a,b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      users
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
       notifyListeners();
     });
   }

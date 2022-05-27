@@ -12,63 +12,72 @@ class CustomDrawer extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            decoration:const BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                   Color.fromARGB(255, 203, 236, 241),
-                    Colors.white,
+                  Color.fromARGB(255, 203, 236, 241),
+                  Colors.white,
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
             ),
           ),
-          ListView(children: [
-             CustomDrawerHeader(),
-             const Divider(),
-             const DrawerTile(
-              iconData: Icons.home,
-              title: 'Inicio',
-              page: 0,
-            ),
-             const DrawerTile(
-              iconData: Icons.list,
-              title: 'Produtos',
-              page: 1,
-            ),
-            const DrawerTile(
+          ListView(
+            children: [
+              CustomDrawerHeader(),
+              const Divider(),
+              const DrawerTile(
+                iconData: Icons.home,
+                title: 'Inicio',
+                page: 0,
+              ),
+              const DrawerTile(
+                iconData: Icons.list,
+                title: 'Produtos',
+                page: 1,
+              ),
+              const DrawerTile(
                 iconData: Icons.playlist_add_check,
                 title: 'Categorias',
-                page: 2),
-             const DrawerTile(
+                page: 2,
+              ),
+              const DrawerTile(
                 iconData: Icons.playlist_add_check,
                 title: 'Meus Pedidos',
-                page: 3),
-             const DrawerTile(iconData: Icons.location_on,
+                page: 3,
+              ),
+              const DrawerTile(
+                iconData: Icons.location_on,
                 title: 'Lojas',
-                page: 4),
-            Consumer<UserManager>(
-              builder: (_,userManager,__){
-                if(userManager.adminEnabled){
-                  return  Column(
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                    const   Divider(),
-                    const   DrawerTile(
+                page: 4,
+              ),
+              Consumer<UserManager>(
+                builder: (_, userManager, __) {
+                  if (userManager.adminEnabled) {
+                    return Column(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Divider(),
+                        const DrawerTile(
                           iconData: Icons.settings,
                           title: 'Clientes',
-                          page: 5),
-                     const   DrawerTile(iconData: Icons.settings,
+                          page: 5,
+                        ),
+                        const DrawerTile(
+                          iconData: Icons.settings,
                           title: 'Pedidos',
-                          page: 6),
-                    ],
-                  );
-                }else{
-                  return const SizedBox();
-                }
-              },
-            ),
-          ]),
+                          page: 6,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+            ],
+          ),
         ],
       ),
     );

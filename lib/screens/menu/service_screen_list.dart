@@ -14,21 +14,22 @@ class ServiceScreenList extends StatelessWidget {
           CustomScrollView(
             slivers: [
               SliverAppBar(
-                  title: Text(
-                services.title,
-                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
+                title: Text(
+                  services.title,
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
+                ),
                 snap: true,
                 floating: true,
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 actions: [
-                IconButton(
-                  icon: const Icon(LineAwesomeIcons.search),
-                  color: Colors.white,
-                  onPressed: () {},
+                  IconButton(
+                    icon: const Icon(LineAwesomeIcons.search),
+                    color: Colors.white,
+                    onPressed: () {},
                   ),
-                ]
+                ],
               ),
             ],
           )

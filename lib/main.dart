@@ -4,6 +4,7 @@ import 'package:operativo_final_cliente/models/admin_users_manager.dart';
 import 'package:operativo_final_cliente/models/cart_manager.dart';
 import 'package:operativo_final_cliente/models/category_manager.dart';
 import 'package:operativo_final_cliente/models/categorys.dart';
+import 'package:operativo_final_cliente/models/estabelecimentos_manager.dart';
 import 'package:operativo_final_cliente/models/home_manager.dart';
 import 'package:operativo_final_cliente/models/orders_manager.dart';
 import 'package:operativo_final_cliente/models/product.dart';
@@ -12,6 +13,8 @@ import 'package:operativo_final_cliente/models/services.dart';
 import 'package:operativo_final_cliente/models/services_manager.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
 import 'package:operativo_final_cliente/screens/address/address_screen.dart';
+import 'package:operativo_final_cliente/screens/anything/anything_screen.dart';
+import 'package:operativo_final_cliente/screens/anything/checkout_anything_screen.dart';
 import 'package:operativo_final_cliente/screens/base/home_base_screen.dart';
 import 'package:operativo_final_cliente/screens/cart/cart_screen.dart';
 import 'package:operativo_final_cliente/screens/checkout/checkout_screen.dart';
@@ -27,8 +30,6 @@ import 'package:operativo_final_cliente/screens/select_product/select_product_sc
 import 'package:operativo_final_cliente/screens/signup/signup_screen.dart';
 import 'package:operativo_final_cliente/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
-import 'models/estabelecimentos_manager.dart';
-import 'models/order.dart';
 
 Future<void> main() async {
   runApp(MyApp());
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
               cartManager..updateUser(userManager),
         ),
         ChangeNotifierProxyProvider<UserManager, OrdersManager>(
-          //para poder trazer o cart list do user logado
+          //para poder trazer os pedidos do user logado
           create: (_) => OrdersManager(),
           lazy: false,
           update: (_, userManager, ordersManager) =>
@@ -86,13 +87,13 @@ class MyApp extends StatelessWidget {
               adminUserManager..updateUser(userManager),
         ),
         ChangeNotifierProxyProvider<UserManager, AdminOrdersManager>(
-            create: (_) => AdminOrdersManager(),
-            lazy: false,
-            update: (_, userManager, adminOrdersManager) => adminOrdersManager
-              ..updateAdmin(adminEnabled: userManager.adminEnabled))
+          create: (_) => AdminOrdersManager(),
+          lazy: false,
+          update: (_, userManager, adminOrdersManager) => adminOrdersManager
+            ..updateAdmin(adminEnabled: userManager.adminEnabled),
+        )
       ],
       child: MaterialApp(
-        title: 'Operativo',
         theme: ThemeData(
           primaryColor: const Color.fromARGB(255, 4, 125, 141),
           scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
@@ -102,7 +103,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         //initialRoute: '/base',
         onGenerateRoute: (settings) {
-         // print(settings.name);
           switch (settings.name) {
             case '/login':
               return MaterialPageRoute(builder: (_) => LoginScreen());
@@ -110,22 +110,28 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => SignUpScreen());
             case '/product':
               return MaterialPageRoute(
-                  builder: (_) => ProductScreen(settings.arguments as Product));
+                builder: (_) => ProductScreen(settings.arguments as Product),
+              );
             case '/category':
               return MaterialPageRoute(
-                  builder: (_) =>
-                      ProductScreenList(settings.arguments as Category));
+                builder: (_) =>
+                    ProductScreenList(settings.arguments as Category),
+              );
             case '/cart':
               return MaterialPageRoute(
-                  builder: (_) => CartScreen(), settings: settings);
+                builder: (_) => CartScreen(),
+                settings: settings,
+              );
             case '/edit_product':
               return MaterialPageRoute(
-                  builder: (_) =>
-                      EditProductScreen(settings.arguments as Product));
+                builder: (_) =>
+                    EditProductScreen(settings.arguments as Product),
+              );
             case '/services':
               return MaterialPageRoute(
-                  builder: (_) =>
-                      ServiceScreenList(settings.arguments as Services));
+                builder: (_) =>
+                    ServiceScreenList(settings.arguments as Services),
+              );
             case '/select_product':
               return MaterialPageRoute(builder: (_) => SelectProductScreen());
             case '/address':
@@ -138,8 +144,14 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => MenuScreen());
             case '/confirmation':
               return MaterialPageRoute(
-                  builder: (_) =>
-                      ConfirmationScreen(settings.arguments as Order));
+                builder: (_) => ConfirmationScreen(settings.arguments as Order),
+              );
+            case '/anything':
+              return MaterialPageRoute(builder: (_) => AnythingScreen());
+            case '/checkout_anything':
+              return MaterialPageRoute(
+                builder: (_) => CheckoutAnythingScreen(),
+              );
             case '/base':
               //default:
               return MaterialPageRoute(
@@ -148,7 +160,9 @@ class MyApp extends StatelessWidget {
             case '/':
             default:
               return MaterialPageRoute(
-                  builder: (_) => SplashScreen(), settings: settings);
+                builder: (_) => SplashScreen(),
+                settings: settings,
+              );
           }
         },
       ),

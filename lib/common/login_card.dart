@@ -25,7 +25,7 @@ class LoginCard extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: Theme.of(context).primaryColor),
+                      color: Theme.of(context).primaryColor,),
                 ),
               ),
               RaisedButton(

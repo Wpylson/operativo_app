@@ -8,12 +8,12 @@ class ServiceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.of(context).pushNamed('/services', arguments: services);
       },
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4)
+          borderRadius: BorderRadius.circular(4),
         ),
         child: Container(
           height: 100,
@@ -24,18 +24,21 @@ class ServiceTile extends StatelessWidget {
                 aspectRatio: 1,
                 child: Image.network(services.icon),
               ),
-              const SizedBox(width: 16,),
+              const SizedBox(
+                width: 16,
+              ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(services.title,
-                    style: const TextStyle(
-                        color:Colors.black,
+                    Text(
+                      services.title,
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontWeight: FontWeight.w800,
-                        fontSize: 16
-                    ) ,
+                        fontSize: 16,
+                      ),
                     )
                   ],
                 ),

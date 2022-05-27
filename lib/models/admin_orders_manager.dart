@@ -4,30 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:operativo_final_cliente/models/order.dart';
 import 'package:operativo_final_cliente/models/user.dart';
 
-class AdminOrdersManager extends ChangeNotifier{
-
+class AdminOrdersManager extends ChangeNotifier {
   final List<Order> _orders = [];
-  final Firestore firestore = Firestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   StreamSubscription _subscription;
-  User userFilter;//variavel para filtro
+  User userFilter; //variavel para filtro
   List<Status> statusFilter = [Status.preparing];
 
   //Get Filtro
-  List<Order> get filteredOrders{
-    List<Order> output =_orders.reversed.toList();
+  List<Order> get filteredOrders {
+    List<Order> output = _orders.reversed.toList();
 
-    if(userFilter != null){
+    if (userFilter != null) {
       output = output.where((o) => o.userId == userFilter.id).toList();
     }
 
-   return output = output.where((o) => statusFilter.contains(o.status)).toList();
-
+    return output =
+        output.where((o) => statusFilter.contains(o.status)).toList();
   }
 
   void updateAdmin({bool adminEnabled}) {
     _orders.clear();
 
-    _subscription?.cancel();//se nao é null call o cancel
+    _subscription?.cancel(); //se nao é null call o cancel
     if (adminEnabled) {
       _listenToOrders();
     }
@@ -35,17 +34,17 @@ class AdminOrdersManager extends ChangeNotifier{
 
   void _listenToOrders() {
     _subscription = firestore.collection('orders').snapshots().listen((event) {
-      for(final change in event.documentChanges){
-        switch(change.type){
+      for (final change in event.docChanges) {
+        switch (change.type) {
           case DocumentChangeType.added:
             _orders.add(
-              Order.fromDocuments(change.document)
+              Order.fromDocuments(change.doc),
             );
             break;
           case DocumentChangeType.modified:
-           final modOrders = _orders.firstWhere(
-                   (o) => o.orderId == change.document.documentID);
-           modOrders.updateFromDocument(change.document);
+            final modOrders =
+                _orders.firstWhere((o) => o.orderId == change.doc.id);
+            modOrders.updateFromDocument(change.doc);
             break;
           case DocumentChangeType.removed:
             debugPrint('Bug.. big bug!!!');
@@ -56,15 +55,15 @@ class AdminOrdersManager extends ChangeNotifier{
     });
   }
 
-  void setUserFilter(User user){
+  void setUserFilter(User user) {
     userFilter = user;
     notifyListeners();
   }
 
-  void setStatusFilter({Status status, bool enabled}){
-    if(enabled){
+  void setStatusFilter({Status status, bool enabled}) {
+    if (enabled) {
       statusFilter.add(status);
-    }else{
+    } else {
       statusFilter.remove(status);
     }
 
@@ -75,10 +74,6 @@ class AdminOrdersManager extends ChangeNotifier{
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _subscription?.cancel();//se nao e nulo chamar o cancel
+    _subscription?.cancel(); //se nao e nulo chamar o cancel
   }
-
-
-
-
 }

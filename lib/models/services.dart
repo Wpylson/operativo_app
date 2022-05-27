@@ -1,19 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-class Services extends ChangeNotifier{
+class Services extends ChangeNotifier {
   List<Services> allServices = [];
   String id;
   String icon;
   String title;
 
-
-  Services.fromDocument(DocumentSnapshot document){
-    id = document.documentID;
+  Services.fromDocument(DocumentSnapshot document) {
+    id = document.id;
     title = document['title'] as String;
     icon = document['icon'] as String;
   }
-
 
   @override
   String toString() {

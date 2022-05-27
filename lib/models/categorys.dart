@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:operativo_final_cliente/models/product.dart';
 
-class Category extends ChangeNotifier{
-
+class Category extends ChangeNotifier {
   List<Product> allProducts = [];
   String id;
   String title;
@@ -15,30 +14,25 @@ class Category extends ChangeNotifier{
   String name;
   String images;
 
-  final Firestore firestore = Firestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   //Referencia do ID de um doc
-  DocumentReference get firestoreRef => firestore.document('products/$id');
+  DocumentReference get firestoreRef => firestore.doc('products/$id');
 
-
-  Category.fromDocument(DocumentSnapshot document){
-    id = document.documentID;
+  Category.fromDocument(DocumentSnapshot document) {
+    id = document.id;
     title = document['name'] as String;
     icon = document['image'] as String;
-
   }
 
+  Future<void> _loadAllProduct() async {
+    QuerySnapshot snapshot = await firestore
+        .collection('products')
+        .doc(id)
+        .collection('items')
+        .where('deleted', isEqualTo: false)
+        .get();
 
-
-  Future<void> _loadAllProduct()async{
-    QuerySnapshot snapshot= await Firestore.instance.collection('products')
-        .document(id).collection('items')
-        .where('deleted',isEqualTo: false)
-        .getDocuments();
-
-    allProducts = snapshot.documents.map((e) => Product.fromDocument(e)).toList();
+    allProducts = snapshot.docs.map((e) => Product.fromDocument(e)).toList();
     notifyListeners();
-
   }
-
-
 }

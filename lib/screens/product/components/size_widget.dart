@@ -9,28 +9,29 @@ class SizeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = context.watch<Product>(); //usar o contexto actual, nesse casso um produto especifico
+    final product = context.watch<
+        Product>(); //usar o contexto actual, nesse casso um produto especifico
     final selected = size == product.selectedSize;
 
     Color color;
-    if(!size.hasStock){
+    if (!size.hasStock) {
       color = Colors.red.withAlpha(50);
-    }else if(selected){
+    } else if (selected) {
       color = Theme.of(context).primaryColor;
-    }else{
+    } else {
       color = Colors.grey;
     }
 
     return GestureDetector(
-      onTap: (){
-        if(size.hasStock){
+      onTap: () {
+        if (size.hasStock) {
           product.selectedSize = size;
         }
       },
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: color
+            color: color,
           ),
         ),
         child: Row(
@@ -38,7 +39,7 @@ class SizeWidget extends StatelessWidget {
           children: [
             Container(
               color: color,
-              padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: Text(
                 size.name,
                 style: const TextStyle(color: Colors.white),
@@ -47,7 +48,7 @@ class SizeWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-               ' ${size.price.toStringAsFixed(2)} Kz',
+                ' ${size.price.toStringAsFixed(2)} Kz',
                 style: TextStyle(
                   color: color,
                 ),

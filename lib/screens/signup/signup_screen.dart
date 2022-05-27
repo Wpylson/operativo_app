@@ -3,7 +3,6 @@ import 'package:operativo_final_cliente/common/colors.dart';
 import 'package:operativo_final_cliente/helpers/validators.dart';
 import 'package:operativo_final_cliente/models/user.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
-import 'package:operativo_final_cliente/screens/base/home_base_screen.dart';
 import 'package:operativo_final_cliente/screens/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -11,33 +10,37 @@ class SignUpScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final User user = User();
+  final Uuser user = Uuser();
   @override
   Widget build(BuildContext context) {
     final Color primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
-        key: scaffoldKey,
-        backgroundColor: azul,
-        appBar: AppBar(
-          title: Text(
-            'Criar Conta',
-            style: TextStyle(color: amarela),
-          ),
-          centerTitle: true,
-          backgroundColor: azul,
-          elevation: 0.0,
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: amarela,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
-              }),
+      key: scaffoldKey,
+      backgroundColor: azul,
+      appBar: AppBar(
+        title: Text(
+          'Criar Conta',
+          style: TextStyle(color: amarela),
         ),
-        body: SingleChildScrollView(
+        centerTitle: true,
+        backgroundColor: azul,
+        elevation: 0.0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: amarela,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+            );
+          },
+        ),
+      ),
+      body: Expanded(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Row(
@@ -58,7 +61,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               Center(
                 child: Card(
-                  color: amarela,
+                  color: branco,
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   child: Form(
                     key: formKey,
@@ -75,8 +78,7 @@ class SignUpScreen extends StatelessWidget {
                                     Icons.person,
                                     color: azul,
                                   ),
-                                hintStyle: TextStyle(color: azul)
-                              ),
+                                  hintStyle: TextStyle(color: azul)),
                               enabled: !userManager.loading,
                               validator: (name) {
                                 if (name.isEmpty) {
@@ -117,10 +119,10 @@ class SignUpScreen extends StatelessWidget {
                               height: 16,
                             ),
                             TextFormField(
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                   hintText: 'Palavra-passe',
-                              prefixIcon: Icon(Icons.lock,color:azul),
-                              hintStyle: TextStyle(color:azul)),
+                                  prefixIcon: Icon(Icons.lock, color: azul),
+                                  hintStyle: TextStyle(color: azul)),
                               enabled: !userManager.loading,
                               obscureText: true,
                               validator: (pass) {
@@ -137,10 +139,10 @@ class SignUpScreen extends StatelessWidget {
                               height: 16,
                             ),
                             TextFormField(
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                   hintText: 'Repita a palavra-passe',
-                                  prefixIcon: Icon(Icons.lock,color:azul),
-                                  hintStyle: TextStyle(color:azul)),
+                                  prefixIcon: Icon(Icons.lock, color: azul),
+                                  hintStyle: TextStyle(color: azul)),
                               enabled: !userManager.loading,
                               obscureText: true,
                               validator: (confirmPass) {
@@ -172,32 +174,39 @@ class SignUpScreen extends StatelessWidget {
                                           if (user.password !=
                                               user.confirmPassword) {
                                             scaffoldKey.currentState
-                                                .showSnackBar(const SnackBar(
-                                              content:
-                                                  Text('Senhas não coincidem!'),
-                                              backgroundColor: Colors.red,
-                                            ));
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'Senhas não coincidem!'),
+                                                backgroundColor: Colors.red,
+                                              ),
+                                            );
                                             return;
                                           }
                                           userManager.signUp(
-                                              user: user,
-                                              onSuccess: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              onFail: (e) {
-                                                scaffoldKey.currentState
-                                                    .showSnackBar(SnackBar(
+                                            user: user,
+                                            onSuccess: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            onFail: (e) {
+                                              scaffoldKey.currentState
+                                                  .showSnackBar(
+                                                SnackBar(
                                                   content: Text(
-                                                      'Falha ao cadastrar: $e'),
+                                                    'Falha ao cadastrar: $e',
+                                                  ),
                                                   backgroundColor: Colors.red,
-                                                ));
-                                              });
+                                                ),
+                                              );
+                                            },
+                                          );
                                         }
                                       },
                                 child: userManager.loading
                                     ? const CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation(Color.fromRGBO( 255, 207, 1,1.0)),
+                                        valueColor: AlwaysStoppedAnimation(
+                                          Color.fromRGBO(255, 207, 1, 1.0),
+                                        ),
                                       )
                                     : const Text(
                                         'Criar Conta',
@@ -214,6 +223,8 @@ class SignUpScreen extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

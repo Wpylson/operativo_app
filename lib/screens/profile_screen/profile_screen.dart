@@ -10,98 +10,108 @@ import 'package:provider/provider.dart';
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context,
-        allowFontScaling: true, designSize: const Size(414, 896));
+    ScreenUtil.init(
+      context,
+      minTextAdapt: true,
+      designSize: const Size(414, 896),
+    );
     return Scaffold(
-      backgroundColor: azul,
-      appBar:AppBar(
         backgroundColor: azul,
-        elevation: 0,
-
-      ),
+        appBar: AppBar(
+          backgroundColor: azul,
+          elevation: 0,
+        ),
         body: Consumer<UserManager>(builder: (_, userManager, __) {
-      if (userManager.isLoggedIn) {
-          return Column(
-            children: [
-
-            Column(
+          if (userManager.isLoggedIn) {
+            return Column(
               children: [
                 Column(
-                    children: [
-                      SizedBox(
-                        height: kSpacingUnit.w * 10,
-                        width: kSpacingUnit.w * 10,
-                        child: Stack(
-                          children: [
-                            CircleAvatar(
-                              radius: kSpacingUnit.w * 5,
-                              backgroundImage:
-                                  const AssetImage('assets/images/profile.jpg'),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                height: kSpacingUnit.w * 3,
-                                width: kSpacingUnit.w * 3,
-                                decoration: BoxDecoration(
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: kSpacingUnit.w * 10,
+                          width: kSpacingUnit.w * 10,
+                          child: Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: kSpacingUnit.w * 5,
+                                backgroundImage: const AssetImage(
+                                    'assets/images/profile.jpg'),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                  height: kSpacingUnit.w * 3,
+                                  width: kSpacingUnit.w * 3,
+                                  decoration: BoxDecoration(
                                     color: amarela,
-                                    shape: BoxShape.circle),
-                                child: IconButton(
-                                  icon:  Icon(LineAwesomeIcons.pen,color: azul,),
-                                  color: azul,
-                                  iconSize:
-                                      ScreenUtil().setSp(kSpacingUnit.w * 1.5),
-                                  onPressed: () {},
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      LineAwesomeIcons.pen,
+                                      color: azul,
+                                    ),
+                                    color: azul,
+                                    iconSize: ScreenUtil()
+                                        .setSp(kSpacingUnit.w * 1.5),
+                                    onPressed: () {},
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: kSpacingUnit.w * 2,
-                      ),
-                      Text(
+                        SizedBox(
+                          height: kSpacingUnit.w * 2,
+                        ),
+                        Text(
                           'Olá, ${userManager.user?.name ?? 'Incia Sessão ou cria uma nova conta '}',
                           style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white
-                          )),
-                      SizedBox(
-                        height: kSpacingUnit.w * 0.5,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          height: kSpacingUnit.w * 0.5,
+                        ),
+                        Text(
+                          userManager.user.email,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: branco,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: kSpacingUnit.w * 2,
+                ),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      const ListItemWidget(
+                        icon: LineAwesomeIcons.heart_1,
+                        text: 'Favoritos',
+                        hasNavigation: true,
                       ),
-                      Text(userManager.user.email, style:  TextStyle(
-                        fontSize: 12,
-                        color: branco
-                      )),
-                    ],
-                  ),
-              ],
-            ),
-             SizedBox(height: kSpacingUnit.w * 2 ,),
-            Expanded(
-              child: ListView(
-                children: [
-                  const ListItemWidget(
-                    icon: LineAwesomeIcons.heart_1,
-                    text: 'Favoritos',
-                    hasNavigation: true,
-                  ),
-                   ListItemWidget(
-                    icon: LineAwesomeIcons.alternate_list,
-                    text: 'Meus Pedidos',
-                    hasNavigation: true,
-                    tap: (){
-                      Navigator.of(context).pushNamed('/orders');
-                    },
-                  ),
-                  const ListItemWidget(
-                    icon: LineAwesomeIcons.history,
-                    text: 'Histórico',
-                    hasNavigation: true,
-                  ),
-
-                  ListItemWidget(
+                      ListItemWidget(
+                        icon: LineAwesomeIcons.alternate_list,
+                        text: 'Meus Pedidos',
+                        hasNavigation: true,
+                        tap: () {
+                          Navigator.of(context).pushNamed('/orders');
+                        },
+                      ),
+                      const ListItemWidget(
+                        icon: LineAwesomeIcons.history,
+                        text: 'Histórico',
+                        hasNavigation: true,
+                      ),
+                      ListItemWidget(
                         icon: LineAwesomeIcons.alternate_sign_out,
                         text: 'Sair',
                         hasNavigation: false,
@@ -109,24 +119,29 @@ class ProfileScreen extends StatelessWidget {
                           userManager.signOut();
                         },
                       ),
-
-                ],
+                      ListItemWidget(
+                        icon: LineAwesomeIcons.helping_hands,
+                        text: 'Ajuda',
+                        hasNavigation: true,
+                        tap: () {},
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          } else {
+            return Center(
+              child: ListItemWidget(
+                icon: LineAwesomeIcons.door_open,
+                text: 'Iniciar Sessão ou Criar Conta',
+                hasNavigation: true,
+                tap: () {
+                  Navigator.of(context).pushNamed('/login');
+                },
               ),
-            )
-          ],
-        );
-      } else {
-          return Center(
-           child: ListItemWidget(
-            icon: LineAwesomeIcons.door_open,
-            text: 'Iniciar Sessão ou Criar Conta',
-            hasNavigation: true,
-            tap: () {
-              Navigator.of(context).pushNamed('/login');
-            },
-          ),
-        );
-      }
-    }));
+            );
+          }
+        }));
   }
 }

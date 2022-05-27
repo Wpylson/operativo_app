@@ -23,7 +23,7 @@ class ListItemWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric( horizontal: kSpacingUnit.w * 2),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-            color: Theme.of(context).backgroundColor
+            color: Theme.of(context).backgroundColor,
         ),
         child: Row(
           children: [

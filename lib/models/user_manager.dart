@@ -11,20 +11,20 @@ class UserManager extends ChangeNotifier {
     _loadCurrentUser();
   }
 
-  User user;
+  Uuser user;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final Firestore firestore = Firestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   bool _loading = false;
   bool get loading => _loading;
 
   bool get isLoggedIn => user != null;
 
-  Future<void> signIn({User user, Function onFail, Function onSuccess}) async {
+  Future<void> signIn({Uuser user, Function onFail, Function onSuccess}) async {
     loading = true;
     try {
-      final AuthResult result = await auth.signInWithEmailAndPassword(
-          email: user.email, password: user.password);
+      final result = await auth.signInWithEmailAndPassword(
+          email: user.email, password: this.user.password);
 
       await _loadCurrentUser(firebaseUser: result.user);
       onSuccess();
@@ -35,7 +35,7 @@ class UserManager extends ChangeNotifier {
     loading = false;
   }
 
-  Future<void> signUp({User user, Function onFail, Function onSuccess}) async {
+  Future<void> signUp({Uuser user, Function onFail, Function onSuccess}) async {
     loading = true;
     try {
       final AuthResult result = await auth.createUserWithEmailAndPassword(
@@ -43,7 +43,7 @@ class UserManager extends ChangeNotifier {
 
       //Salvar o id do user
       user.id = result.user.uid;
-      await user.saveData();
+      await user.();
       onSuccess();
     } on PlatformException catch (e) {
       onFail(getErrorString(e.code));
@@ -62,16 +62,16 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async {
-    final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
+  Future<void> _loadCurrentUser({FirebaseAuth firebaseUser}) async {
+    final FirebaseAuth currentUser = firebaseUser ?? await auth.currentUser();
     if (currentUser != null) {
       final DocumentSnapshot
           docUser = // await firestore.collection('users').document(currentUser.uid).get();
           await firestore
               .collection('citys')
-              .document('namibe')
+              .doc('namibe')
               .collection('users')
-              .document(currentUser.uid)
+              .doc(currentUser.uid)
               .get();
       user = User.fromDocument(docUser);
 

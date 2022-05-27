@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:operativo_final_cliente/models/categorys.dart';
 
-class CategoryManager extends ChangeNotifier{
-
-  CategoryManager(){
+class CategoryManager extends ChangeNotifier {
+  CategoryManager() {
     _loadAllCategorys();
   }
-  final Firestore firestore = Firestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Category> allCategorys = [];
 
   //Para pesquisar
@@ -19,30 +18,23 @@ class CategoryManager extends ChangeNotifier{
     notifyListeners();
   }
 
-  List<Category> get filteredCategorys{
-    final List<Category> filteredCategory =[];
+  List<Category> get filteredCategorys {
+    final List<Category> filteredCategory = [];
 
-    if(search.isEmpty){
+    if (search.isEmpty) {
       filteredCategory.addAll(allCategorys);
-    }else{
-      filteredCategory.addAll(
-          allCategorys.where(
-                  (c) => c.title.toLowerCase().contains(search.toLowerCase())
-          )
-      );
+    } else {
+      filteredCategory.addAll(allCategorys
+          .where((c) => c.title.toLowerCase().contains(search.toLowerCase())));
     }
 
     return filteredCategory;
   }
 
+  Future<void> _loadAllCategorys() async {
+    final QuerySnapshot snapCat = await firestore.collection('products').get();
 
-
-  Future<void> _loadAllCategorys()async{
-    final QuerySnapshot snapCat = await firestore.collection('products').getDocuments();
-
-     allCategorys = snapCat.documents.map((c) => Category.fromDocument(c)).toList();
+    allCategorys = snapCat.docs.map((c) => Category.fromDocument(c)).toList();
     notifyListeners();
   }
-
-
 }

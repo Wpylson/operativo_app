@@ -1,20 +1,16 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:operativo_final_cliente/common/custom_drawer/custom_drawer.dart';
 import 'package:operativo_final_cliente/models/home_manager.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
 import 'package:operativo_final_cliente/screens/home/components/add_section_widget.dart';
 import 'package:operativo_final_cliente/screens/home/components/section_list.dart';
 import 'package:operativo_final_cliente/screens/home/components/section_staggered.dart';
-import 'package:operativo_final_cliente/screens/orders/orders_screen.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget{
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body: Stack(
+      body: Stack(
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -31,11 +27,9 @@ class HomeScreen extends StatelessWidget{
           CustomScrollView(
             slivers: [
               SliverAppBar(
-                title: const Text('Operativo',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-                 ),
+                title: const Text(
+                  'Operativo',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 snap: true,
                 floating: true,
@@ -82,36 +76,38 @@ class HomeScreen extends StatelessWidget{
                   )
                 ],
               ),
-
-              Consumer<HomeManager>(builder: (_, homeManager, __) {
-                if (homeManager.loading) {
-                  return const SliverToBoxAdapter(
+              Consumer<HomeManager>(
+                builder: (_, homeManager, __) {
+                  if (homeManager.loading) {
+                    return const SliverToBoxAdapter(
                       child: LinearProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(Colors.white),
-                    backgroundColor: Colors.transparent,
-                  ));
-                }
-                //List das seccoes
-                final List<Widget> children =
-                    homeManager.sections.map<Widget>((section) {
-                  switch (section.type) {
-                    case 'List':
-                      return SectionList(section);
-                    case 'Staggered':
-                      return SectionStaggered(section);
-                    default:
-                      return const SizedBox();
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                        backgroundColor: Colors.transparent,
+                      ),
+                    );
                   }
-                }).toList();
+                  //List das seccoes
+                  final List<Widget> children =
+                      homeManager.sections.map<Widget>((section) {
+                    switch (section.type) {
+                      case 'List':
+                        return SectionList(section);
+                      case 'Staggered':
+                        return SectionStaggered(section);
+                      default:
+                        return const SizedBox();
+                    }
+                  }).toList();
 
-                if (homeManager.editing) {
-                  children.add(AddSectionWidget(homeManager));
-                }
+                  if (homeManager.editing) {
+                    children.add(AddSectionWidget(homeManager));
+                  }
 
-                return SliverList(
-                  delegate: SliverChildListDelegate(children),
-                );
-              }),
+                  return SliverList(
+                    delegate: SliverChildListDelegate(children),
+                  );
+                },
+              ),
             ],
           ),
         ],

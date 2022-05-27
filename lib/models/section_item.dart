@@ -1,8 +1,7 @@
-class SectionItem{
+class SectionItem {
+  SectionItem({this.image, this.product});
 
-  SectionItem({this.image,this.product});
-
-  SectionItem.fromMap(Map<String, dynamic> map){
+  SectionItem.fromMap(Map<String, dynamic> map) {
     image = map['image'] as String;
     product = map['product'] as String;
   }
@@ -11,14 +10,14 @@ class SectionItem{
   String product;
 
   //Clonar lista de items
-  SectionItem clone(){
+  SectionItem clone() {
     return SectionItem(
       image: image,
-      product: product
+      product: product,
     );
   }
 
-  Map<String,dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'image': image,
       'product': product,
@@ -29,6 +28,4 @@ class SectionItem{
   String toString() {
     return 'SectionItem{image: $image, product: $product}';
   }
-
-
 }

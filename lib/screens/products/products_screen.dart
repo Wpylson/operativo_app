@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:operativo_final_cliente/common/custom_drawer/custom_drawer.dart';
 import 'package:operativo_final_cliente/models/product_manger.dart';
 import 'package:operativo_final_cliente/models/user_manager.dart';
 import 'package:operativo_final_cliente/screens/products/product_list_tile.dart';
 import 'package:provider/provider.dart';
+// ignore: always_use_package_imports
 import 'componets/search_dialog.dart';
-
 
 class ProductsScreen extends StatelessWidget {
   @override
@@ -13,26 +12,29 @@ class ProductsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Consumer<ProductManager>(
-          builder: (_,productManager,__){
-            if(productManager.search.isEmpty){
+          builder: (_, productManager, __) {
+            if (productManager.search.isEmpty) {
               return const Text('Produtos');
-            }else{
+            } else {
               return LayoutBuilder(
-                builder: (_,constraits){
+                builder: (_, constraits) {
                   return GestureDetector(
-                    onTap: () async{
-                      final search =  await showDialog<String>(
-                          context: context,
-                          builder: (_) => SearchDialog(productManager.search));
-                      if(search != null){
+                    onTap: () async {
+                      final search = await showDialog<String>(
+                        context: context,
+                        builder: (_) => SearchDialog(productManager.search),
+                      );
+                      if (search != null) {
                         productManager.search = search;
                       }
                     },
                     child: Center(
-                      child:  SizedBox(
+                      child: SizedBox(
                         width: constraits.biggest.width,
-                          child: Text(productManager.search,
-                          textAlign: TextAlign.center,)
+                        child: Text(
+                          productManager.search,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   );
@@ -44,39 +46,41 @@ class ProductsScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           Consumer<ProductManager>(
-            builder: (_,productManager,__){
-              if(productManager.search.isEmpty){//TODO: EDITAR A PESQUISA
-               return IconButton(
+            builder: (_, productManager, __) {
+              if (productManager.search.isEmpty) {
+                //TODO: EDITAR A PESQUISA
+                return IconButton(
                   icon: const Icon(Icons.search),
-                  onPressed: ()async{
-                    final search =  await showDialog<String>(
-                        context: context,
-                        builder: (_) => SearchDialog(productManager.search));
-                    if(search != null){
+                  onPressed: () async {
+                    final search = await showDialog<String>(
+                      context: context,
+                      builder: (_) => SearchDialog(productManager.search),
+                    );
+                    if (search != null) {
                       productManager.search = search;
                     }
                   },
                 );
-              }else{
+              } else {
                 return IconButton(
-                   icon: const Icon(Icons.close),
-                  onPressed: ()async{
-                    productManager.search = '' ;
+                  icon: const Icon(Icons.close),
+                  onPressed: () async {
+                    productManager.search = '';
                   },
                 );
               }
             },
           ),
           Consumer<UserManager>(
-            builder: (_,userManager,__){
-              if(userManager.adminEnabled){
+            builder: (_, userManager, __) {
+              if (userManager.adminEnabled) {
                 return IconButton(
                   icon: const Icon(Icons.add),
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.of(context).pushNamed('/edit_product');
                   },
                 );
-              }else{
+              } else {
                 return const SizedBox();
               }
             },
@@ -84,35 +88,35 @@ class ProductsScreen extends StatelessWidget {
         ],
       ),
       body: Consumer<ProductManager>(
-        builder: (_,productManager,__){
+        builder: (_, productManager, __) {
           final filteredProducts = productManager.filteredProducts;
-          if(filteredProducts.length > 0){
+          if (filteredProducts.isNotEmpty) {
             return ListView.builder(
-                itemCount: filteredProducts.length,
-                itemBuilder: (_,index){
-                  return ListTile(
-                    title: ProductListTile(filteredProducts[index]),
-                  );
-                }
+              itemCount: filteredProducts.length,
+              itemBuilder: (_, index) {
+                return ListTile(
+                  title: ProductListTile(filteredProducts[index]),
+                );
+              },
             );
-          }else{
+          } else {
             return const Center(
-             child: Text('Produto nao encontrado!',
-             style: TextStyle(fontSize: 22,color: Colors.white),),
+              child: Text(
+                'Produto nao encontrado!',
+                style: TextStyle(fontSize: 22, color: Colors.white),
+              ),
             );
           }
-
-
         },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         foregroundColor: Theme.of(context).primaryColor,
-        onPressed: (){
+        onPressed: () {
           Navigator.of(context).pushNamed('/cart');
         },
         child: const Icon(Icons.shopping_cart),
-      ) ,
+      ),
     );
   }
 }
