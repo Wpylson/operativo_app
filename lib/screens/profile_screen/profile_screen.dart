@@ -16,10 +16,10 @@ class ProfileScreen extends StatelessWidget {
       designSize: const Size(414, 896),
     );
     return Scaffold(
-        backgroundColor: azul,
+        backgroundColor: blue,
         appBar: AppBar(
-          backgroundColor: azul,
-          elevation: 0,
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
         ),
         body: Consumer<UserManager>(builder: (_, userManager, __) {
           if (userManager.isLoggedIn) {
